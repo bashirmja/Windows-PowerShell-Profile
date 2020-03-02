@@ -1,3 +1,27 @@
+function StartupHint {
+    Write-Host "AMCS Useful Development Commands:" -f Yellow
+    Write-Host ""
+    Write-Host "Command  Explanation                  Params <required> [optional]" -f Yellow
+    Write-Host "-------- ---------------------------- ---------------------------- " -f Yellow
+    Write-Host "Repo     Changing dir to other repos  [repo short name]" -f cyan
+    Write-Host "Branch   Changing branche to others   [branch name]" -f cyan
+    Write-Host "" 
+    Write-Host "How to run:" -f cyan
+    Write-Host "AMCS Command Params" -f cyan
+    Write-Host "" 
+}
+
+function Amcs($command, $par1){
+
+    if($command -eq "Repo"){
+        ChangeToOtherRepos $par1
+    }elseif($command -eq "Branch"){
+        ChangeToOtherBranch $par1
+    }else{
+        Write-Host "Bad command or file name!"
+    }
+}
+
 function ChangeToOtherRepos($repo) {
      
      if($repo -notmatch "\S"){
@@ -11,7 +35,7 @@ function ChangeToOtherRepos($repo) {
         Write-Host "[PU] Platform UI" -f Green
         Write-Host "[WP] Windows PowerShell Profile" -f Green
      
-        $repo = Read-Host "Please Choose your repo"
+        $repo = Read-Host "Please Choose your repo" 
     }
 
     $mainPath ="$home\source\repos\AMCS\"
@@ -39,23 +63,17 @@ function ChangeToOtherRepos($repo) {
 }
 
 
-function startupHint {
-    Write-Host "AMCS Useful Development Commands:" -f Yellow
-    Write-Host ""
-    Write-Host "(CMD) Command Explanation       Params <required> [optional]" -f Yellow
-    Write-Host "----- ------------------------- ---------------------------- " -f Yellow
-    Write-Host "(REP) Change dir to other repos [repo short name]" -f cyan
-    Write-Host "" 
-    Write-Host "How to run:" -f cyan
-    Write-Host "AMCS <CMD> <[Params]>" -f cyan
-    Write-Host "" 
-}
+function ChangeToOtherBranch($branch) {
+     
+    git fetch 
+    if($branch -notmatch "\S"){
+        git branch -a
 
-function amcs($command, $par1){
-
-    if($command -eq "REP"){
-        ChangeToOtherRepos $par1
-    }else{
-        Write-Host "Bad command or file name!"
+        $branch = Read-Host "Please Choose your branch"
     }
+    git stash
+    git checkout $branch
+    git submodule init
+    git submodule update
 }
+

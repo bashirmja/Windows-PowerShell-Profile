@@ -16,11 +16,9 @@ function prompt {
 
 function GitPrompt {
     $a = Write-Host("[") -nonewline -foregroundcolor yellow
-    $b = Write-Host(GitHeadCommitId) -nonewline -foregroundcolor green
-    $c = Write-Host("|") -nonewline -foregroundcolor yellow
-    $d = Write-Host(GetBranchName) -nonewline -foregroundcolor green
-    $e = Write-Host("]") -nonewline -foregroundcolor yellow
-    return $a, $b, $c, $d, $e
+    $B = Write-Host(GetBranchName) -nonewline -foregroundcolor green
+    $C = Write-Host("]") -nonewline -foregroundcolor yellow
+    return $a, $B, $C
 }
 
 function GetBranchName {
