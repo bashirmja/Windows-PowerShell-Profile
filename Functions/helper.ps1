@@ -5,6 +5,7 @@ function StartupHint {
     Write-Host "-------- ---------------------------- ---------------------------- " -f Yellow
     Write-Host "Repo     Changing dir to other repos  [repo short name]" -f cyan
     Write-Host "Branch   Changing branche to others   [branch name]" -f cyan
+    Write-Host "UCB      Update current branch" -f cyan
     Write-Host "" 
     Write-Host "How to run:" -f cyan
     Write-Host "AMCS Command Params" -f cyan
@@ -17,6 +18,8 @@ function Amcs($command, $par1){
         ChangeToOtherRepos $par1
     }elseif($command -eq "Branch"){
         ChangeToOtherBranch $par1
+    }elseif($command -eq "UCB"){
+        UpdateCurrentBranch 
     }else{
         Write-Host "Bad command or file name!"
     }
@@ -73,7 +76,18 @@ function ChangeToOtherBranch($branch) {
     }
     git stash
     git checkout $branch
-    git submodule init
-    git submodule update
+    UpdateCurrentBranch
 }
 
+function UpdateCurrentBranch(){
+    if (isCurrentDirectoryandParentsGitRepository) {
+        git pull 
+        git push
+        git submodule init
+        git submodule update
+    }
+    else {
+        Write-Host "Change dir to a repo" -f red
+    }
+    
+}
