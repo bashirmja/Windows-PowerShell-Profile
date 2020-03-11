@@ -85,6 +85,7 @@ function UpdateCurrentBranch(){
         git push
         git submodule init
         git submodule update
+        git submodule foreach 'git stash'
     }
     else {
         Write-Host "Change dir to a repo" -f red
