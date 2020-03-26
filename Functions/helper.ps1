@@ -1,5 +1,5 @@
 function StartupHint {
-    Write-Host "AMCS Useful Development Commands:" -f Yellow
+    Write-Host "Useful Development Commands:" -f Yellow
     Write-Host ""
     Write-Host "Command  Explanation                  Params <required> [optional]" -f Yellow
     Write-Host "-------- ---------------------------- ---------------------------- " -f Yellow
@@ -8,11 +8,11 @@ function StartupHint {
     Write-Host "UCB      Update current branch" -f cyan
     Write-Host "" 
     Write-Host "How to run:" -f cyan
-    Write-Host "AMCS Command Params" -f cyan
+    Write-Host "Run Command Params" -f cyan
     Write-Host "" 
 }
 
-function Amcs($command, $par1){
+function Run($command, $par1){
 
     if($command -eq "Repo"){
         ChangeToOtherRepos $par1
@@ -30,37 +30,18 @@ function ChangeToOtherRepos($repo) {
      if($repo -notmatch "\S"){
 
         Write-Host ""
-        Write-Host "[I]  Identity Service" -f Green
-        Write-Host "[IU] Identity Service UI" -f Green
-        Write-Host "[T]  Transport and Dispatch" -f Green
-        Write-Host "[TU] Transport and Dispatch UI" -f Green
-        Write-Host "[P]  Platform" -f Green
-        Write-Host "[PU] Platform UI" -f Green
         Write-Host "[WP] Windows PowerShell Profile" -f Green
      
         $repo = Read-Host "Please Choose your repo" 
     }
 
-    $mainPath ="$home\source\repos\AMCS\"
+    $mainPath ="$home\source\repos\"
 
-    if ($repo -eq 'I') {
-        Set-Location "$mainPath\IdentityService\"
-    }elseif ($repo -eq 'IU'){
-        Set-Location "$mainPath\IdentityServiceUI\"
-    }elseif ($repo -eq 'T'){
-        Set-Location "$mainPath\TransportDispatch\"
-    }elseif ($repo -eq 'TU'){
-        Set-Location "$mainPath\TransportDispatchUI\"
-    }elseif ($repo -eq 'P'){
-        Set-Location "$mainPath\Platform\"
-    }elseif ($repo -eq 'PU'){
-        Set-Location "$mainPath\PlatformUI\"
-    }elseif ($repo -eq 'wp'){
+    if ($repo -eq 'wp') {
         Set-Location "$home\Documents\WindowsPowershell\"
     }else{
         Write-Host "Repo not found" -f red
     }
-
 
     Write-Host ""
 }
